@@ -17,8 +17,8 @@ namespace SignalRTest
 			CreateWebHostBuilder(args).Build().Run();
 		}
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
+		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>			
+			WebHost.CreateDefaultBuilder(args).ConfigureLogging(config => { config.ClearProviders(); })
 				.UseStartup<Startup>();
 	}
 }

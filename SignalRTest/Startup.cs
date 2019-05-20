@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalRTest.Hubs;
 
 namespace SignalRTest
 {
@@ -32,6 +33,7 @@ namespace SignalRTest
 
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddSignalR();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +50,10 @@ namespace SignalRTest
 
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
-
+			app.UseSignalR(routes =>
+			{
+				routes.MapHub<ChatHub>("/chatHub");
+			});
 			app.UseMvc();
 		}
 	}
